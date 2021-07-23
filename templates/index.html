@@ -1,20 +1,25 @@
 <html>
 <head>
 <title>Task 6_2</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 <body>
 <h1> Report of task 6_2 </h1>
-<DIV class="subsection" id="report" >
-    <H2>Classification Report</H2>
-    {% for table in tables %}
-    {{titles[loop.index]}}
-    {{ table|safe }}
-    {% endfor %}
+
+<h2>Classification Report</h2>
+
+<DIV class="container" id="report" >
+    
+    <p>{% for table in tables %}</p>
+    <p>{{titles[loop.index]}}</p>
+    <p>{{ table|safe }}</p>
+    <p>{% endfor %}</p>
+
     </DIV>
     <h2>
         Results on test set 
     </h2>
-          {{result}}
+     <p>{{result}}</p>     
     
 </body>
 </html>  
