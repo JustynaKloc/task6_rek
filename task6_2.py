@@ -51,7 +51,6 @@ def process_data(data: pd.DataFrame, stopwords_path: str):
   # Tokenization 
   data['text']= [word_tokenize(entry) for entry in data['text']]
   # Remove Stop words, Non-Numeric and perfom Word Stemming/Lemmenting.
-  # WordNetLemmatizer requires Pos tags to understand if the word is noun or verb or adjective etc. By default it is set to Noun
   tag_map = defaultdict(lambda : wn.NOUN)
   tag_map['J'] = wn.ADJ
   tag_map['V'] = wn.VERB
@@ -87,11 +86,12 @@ oversample = SMOTE(random_state=42)
 Train_X_Tfidf,train_y = oversample.fit_resample(Train_X_Tfidf,train_y)
 
 model = RandomForestClassifier()
-# fit the model on the whole dataset
 model.fit(Train_X_Tfidf,train_y)
 
 RFC_pred = model.predict(Test_X_Tfidf)
-print(classification_report(test_y, RFC_pred))
+report = classification_report(test_y, RFC_pred)
+print(report)
 
 dump(model,'task6model.pkl')
-
+dump(report, 'report.pkl')
+dump(RFC_pred, 'results.pkl')
