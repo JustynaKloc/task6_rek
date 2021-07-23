@@ -89,7 +89,7 @@ model = RandomForestClassifier()
 model.fit(Train_X_Tfidf,train_y)
 
 RFC_pred = model.predict(Test_X_Tfidf)
-report = classification_report(test_y, RFC_pred)
+report = classification_report(test_y, RFC_pred, output_dict=True)
 print(report)
 
 dump(model,'task6model.pkl')
