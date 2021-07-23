@@ -8,7 +8,7 @@ from sklearn.preprocessing import LabelEncoder
 from collections import defaultdict
 from nltk.corpus import wordnet as wn
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn import model_selection, naive_bayes, svm
+from sklearn import model_selection
 from sklearn.metrics import accuracy_score, classification_report
 from sklearn.ensemble import RandomForestClassifier
 import nltk
@@ -76,7 +76,7 @@ train_y = data['label']
 test_X = data_test['text_final']
 test_y = data_test['label']
 
-Tfidf_vect = TfidfVectorizer(max_features=5000)
+Tfidf_vect = TfidfVectorizer(max_features = 3500)
 Tfidf_vect.fit(data['text_final'])
 Train_X_Tfidf = Tfidf_vect.transform(train_X)
 Test_X_Tfidf = Tfidf_vect.transform(test_X)
@@ -85,6 +85,7 @@ oversample = SMOTE(random_state=42)
 
 Train_X_Tfidf,train_y = oversample.fit_resample(Train_X_Tfidf,train_y)
 
+
 model = RandomForestClassifier()
 model.fit(Train_X_Tfidf,train_y)
 
@@ -92,6 +93,6 @@ RFC_pred = model.predict(Test_X_Tfidf)
 report = classification_report(test_y, RFC_pred, output_dict=True)
 print(report)
 
-dump(model,'task6model.pkl')
+dump(model,'task6model.joblib')
 dump(report, 'report.pkl')
 dump(RFC_pred, 'results.pkl')
